@@ -145,7 +145,7 @@ def train():
         for step, (images, labels) in enumerate(ds.dataset):
             labels = np.array([ds.characters[item.numpy().decode('utf-8')] for item in labels])
             labels = tf.one_hot(labels, depth=config.class_dim)
-            labels = tf.reshape(labels, shape=[config.batch_size, 1, 1, config.class_dim])
+            labels = tf.reshape(labels, shape=[-1, 1, 1, config.class_dim])
             labels = tf.cast(labels, dtype=tf.float32)
 
             gen_loss, disc_loss = train_step(images, labels)
